@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electron Update Test</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #333;
+            background-color: #f0f0f0;
+            overflow: hidden;
+        }
+        .svg-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            position: relative;
+            z-index: 1;
+        }
+        h1 {
+            color: #4a4a4a;
+            margin-bottom: 1rem;
+            font-size: 2rem;
+        }
+        #version {
+            font-weight: bold;
+            color: #3498db;
+        }
+        #checkForUpdates {
+            margin-top: 1rem;
+            padding: 0.8rem 1.5rem;
+            font-size: 1rem;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+        #checkForUpdates:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        #message {
+            margin-top: 1rem;
+            font-weight: bold;
+            color: #4a4a4a;
+            min-height: 1.5em;
+        }
+        #name-animation {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #3498db;
+            margin-top: 2rem;
+            opacity: 0;
+            animation: fadeIn 2s ease-in forwards, float 3s ease-in-out infinite;
+        }
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+    </style>
+</head>
+<body>
+    <svg class="svg-background" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" preserveAspectRatio="none">
+        <defs>
+            <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#3498db;stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#2c3e50;stop-opacity:1" />
+            </linearGradient>
+            <filter id="goo">
+                <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+                <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="goo" />
+            </filter>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#grad1)"/>
+        <g filter="url(#goo)">
+            <circle cx="10%" cy="10%" r="80" fill="#2980b9" opacity="0.8">
+                <animate attributeName="cx" from="10%" to="90%" dur="20s" repeatCount="indefinite" />
+                <animate attributeName="cy" from="10%" to="90%" dur="25s" repeatCount="indefinite" />
+            </circle>
+            <circle cx="90%" cy="90%" r="100" fill="#3498db" opacity="0.6">
+                <animate attributeName="cx" from="90%" to="10%" dur="23s" repeatCount="indefinite" />
+                <animate attributeName="cy" from="90%" to="10%" dur="18s" repeatCount="indefinite" />
+            </circle>
+            <circle cx="50%" cy="50%" r="60" fill="#2c3e50" opacity="0.7">
+                <animate attributeName="r" from="60" to="120" dur="15s" repeatCount="indefinite" />
+            </circle>
+        </g>
+    </svg>
+
+    <div class="container">
+        <h1>Electron Update Test</h1>
+        <p>Current version: <span id="version"></span></p>
+        <button id="checkForUpdates">Check for Updates</button>
+        <p id="message"></p>
+        <div id="name-animation">Spirandeli Electron App</div>
+    </div>
+    <script src="renderer.js"></script>
+</body>
+</html>

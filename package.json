@@ -1,0 +1,60 @@
+{
+  "name": "electron-update-test",
+  "version": "1.0.4",
+  "description": "A test Electron app for updates",
+  "main": "main.js",
+  "author": "Lucas Spirandeli",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder build --win --publish never",
+    "deploy": "electron-builder --win --publish always"
+  },
+  "build": {
+    "appId": "com.example.electron-update-test",
+    "productName": "ElectronUpdateTest",
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "icon.png"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": true,
+      "allowElevation": true,
+      "allowToChangeInstallationDirectory": false,
+      "installerIcon": "icon.ico",
+      "uninstallerIcon": "icon.ico",
+      "installerHeaderIcon": "icon.ico",
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "ElectronUpdateTest",
+      "installerSidebar": "icon.ico",
+      "uninstallerSidebar": "icon.ico"
+    },
+    "directories": {
+      "output": "dist",
+      "buildResources": "build"
+    },
+    "publish": [
+      {
+        "provider": "s3",
+        "bucket": "integrations-aloha-electron-updates",
+        "acl": null
+      }
+    ]
+  },
+  "dependencies": {
+    "electron-updater": "^6.3.9",
+    "dotenv": "^16.4.5"
+  },
+  "devDependencies": {
+    "electron": "^32.2.0",
+    "electron-builder": "^25.1.8"
+  }
+}
